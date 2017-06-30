@@ -2,7 +2,7 @@ clear all, close all, clc
 
 %Test the gradient and divergence operators. 
 
-mvect = [20 40 80 160];
+mvect = 20;%[20 40 80 160];
 
 errinfC = zeros( length( mvect), 1);
 errinfR = errinfC;
@@ -28,7 +28,15 @@ for j = 1 : length( mvect )
     
     %Get gradient and divergence operators
     [C, R] = get_curls( parms );
+    [G, D] = get_divgrad( parms );
     
+    %Scale by grid spacing
+        M_vel = get_hscale_vel( parms );
+    
+    errDC =  max(max(abs( D * M_vel * C ))) 
+    errRG = max( max( abs( R * G ) ) )
+    
+    pause
 
     %error for C
         
