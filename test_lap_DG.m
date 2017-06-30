@@ -2,7 +2,7 @@ clear all, close all, clc
 
 %Test the scalar Laplacian obtained from D * G. 
 
-mvect = [20 40 80 160 320];
+mvect = [20 40 80 160];
 
 errinf = zeros( length( mvect), 1);
 
@@ -16,7 +16,7 @@ for j = 1 : length( mvect )
     parms.len = 2;
 
     %# of grid levels
-    parms.mg = 2;
+    parms.mg = 1;
     
     %Offset -- bottom left corner of finest grid is (-offsetx,-offsety)
     parms.offsetx = 0;

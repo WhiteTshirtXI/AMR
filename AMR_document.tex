@@ -1,19 +1,41 @@
 \documentclass[11pt]{article}
 
-\usepackage{fullpage,parskip,amsmath}
+\usepackage{fullpage,parskip,amsmath,amssymb}
 
 
 
 
 \begin{document}
 
-\Large{
+\LARGE{
 \begin{center}
-Discrete derivative operators for nonuniform grids
+\textbf{Discrete derivative operators for nonuniform grids}
 \end{center}
 }
 \normalsize
 
+The divergence ($D$), gradient ($G$), and curl ($C$ and $R$) operators are important features of the immersed boundary method, and in this report we discuss the development of these matrices for nonuniform grids. These operators have been imbued with several properties for uniform grids to produce efficient algorithms, and it would be desirable to preserve as many of these properties as possible in moving to the nonuniform grid case. We review here some salient properties of these matrices for uniform grids, and summarize the properties of the analogous matrices defined on the nonuniform grid.
+
+\section{Preliminaries and notation}
+
+To contextualize our discussion of these operators, we first introduce the notation used. We employ a staggered grid formulation, with discrete vorticity, streamfunction, and circulation defined on cell vertices, discrete velocity and velocity flux defined on cell edges, and discrete pressure defined at cell centers. We define the vertices, edges, and centers respectively as $\mathcal{V} \equiv \{ x : x\in \mathbb{R}^{N_\mathcal{V}}\}$, $\mathcal{E} \equiv\{ x : x \in \mathbb{R}^{N_\mathcal{E}} \}$, and $\mathcal{C} \equiv \{ x : x \in \mathbb{R}^{N_\mathcal{C}} \}$. That is, $\mathcal{V}$ is the set of vectors of length $\mathbb{R}^{N_\mathcal{V}}$ (\emph{e.g.}, streamfunction, vorticity, and circulation), and so on for $\mathcal{C}$, $\mathcal{E}$. We respectively define the streamfunction, vorticity, and circulation as $s, \omega, \gamma \in \mathcal{V}$,  velocity and velocity flux as $u,q \in \mathcal{E}$, and discrete pressure as $p\in\mathcal{C}$.
+
+The grid spacing ($h$) is nonuniform, and we assume that we say there are $m$ different grid spacings on the grid defined as $h_i$, $i = 1, \dots, m$. We define the union of all domains with grid spacing $h_i$ as $\mathcal{G}_i$, $i = 1, \dots, m$. The entire domain is therefore denoted as $\mathcal{G} \equiv \cup_{i = 1}^{m} \mathcal{G}_i$. 
+
+We assign indices to the grid as follows. In 2D, two indices are used, and the $(i,j)^{th}$ point on grid $\mathcal{G}_k$ is defined for the various variables as $(i,j)_{\mathcal{X},\mathcal{G}_i}$, where $\mathcal{X} =  \mathcal{V}, \mathcal{E}, \mathcal{C}$ depending on whether the quantity being considered lives on cell vertices ($\mathcal{V}$, corresponding to $s, \omega, \gamma$), cell edges ($\mathcal{E}$, corresponding to $v, q$), or cell centers ($\mathcal{C}$, corresponding to $p$). Velocity quantities defined on cell edges are further subcategorized into $x$ and $y$ components (living on vertical and horizontal edges, respectively). To explicitly account for this difference, the $(i,j)^{th}$ component of $x$-velocity (flux) is characterized by $(i,j)_{\mathcal{E}_x, \mathcal{G}_k}$ ($y$-components are designated by $\mathcal{E}_y$).
+
+The velocity is related to the velocity flux through the grid spacing. For example, the $x$-component of velocity flux at  a point $(i,j)_{\mathcal{E}x,\mathcal{G}_k}$ is related to the corresponding velocity as $(1/h_k )q(i,j)_{\mathcal{E}x,\mathcal{G}_k} = v(i,j)_{\mathcal{E}x,\mathcal{G}_k}$. Circulation is also related to vorticity through the grid spacing, with $(1/h_k^2)  \gamma(i,j)_{\mathcal{V},\mathcal{G}_k} = \omega(i,j)_{\mathcal{V},\mathcal{G}_k}$. We define $M^{v}\in \mathbb{R}^{N_\mathcal{E} \times N_\mathcal{E}}$ and $M^{\omega}\in \mathbb{R}^{N_\mathcal{V} \times N_\mathcal{V}}$ as diagonal matrices populated with $1/h_k$ and $1/h_k^2$ terms to relate velocity and vorticity to velocity flux and circulation, respectively. We similarly define $M^p\in \mathbb{R}^{N_\mathcal{C} \times N_\mathcal{C}}$ as a diagonal matrix populated with the various $1/h_k$ terms. Note that $M^{v}$, $M^{\omega}$, and $M^p$ are defined globally on all of $\mathcal{G}$.  
+
+The operators $G$, $D$, $C$, and $R$ are all defined without dividing by the grid spacing. The gradient operator is thus defined as $G\in \mathbb{R}^{N_\mathcal{E} \times N_\mathcal{C}}$, such that $M^pGp$ approximates the gradient of pressure. The divergence matrix is defined as $D\in\mathbb{R}^{N_\mathcal{C} \times N_\mathcal{E}}$ such that $M^v Dv$ approximates the divergence of velocity. $C\in \mathbb{R}^{N_\mathcal{E} \times N_\mathcal{V}}$ and $R\in \mathbb{R}^{N_\mathcal{V} \times N_\mathcal{E}}$ satisfy $q = Cs$ and $\gamma = Rq$, respectively. 
+
+\section{Matrix properties for uniform grids}
+
+Consistency, commutativity, $D = -G^T$, $R = C^T$, $RG = 0$, $DC = 0$. Also,  $-DD^T$, $-C^TC$ and $-D^TD - CC^T$ all approximate Laplacians.  blah blah blah.
+
+
+\section{Matrix properties for nonuniform grids}
+
+Consistency, $RG = 0$. Also, maybe $RC$ is a Laplacian. NOTHING ELSE SO FAR.
 
 \end{document}
 

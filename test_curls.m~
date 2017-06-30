@@ -90,17 +90,16 @@ for j = 1 : length( mvect )
         anal_rot = 2*(2*pi/ l_sc) * cos( 2*(x.gamm-shift) * (2*pi/ l_sc)) ...
             .*  sin( 3*(y.gamm-shift) * (2*pi/ l_sc) ) - ...
             (2*pi/ l_sc) * cos( (y.gamm-shift) * (2*pi/ l_sc)) ...
-            .*  sin( (x.gamm-shift) * (2*pi/ l_sc) );
+            .*  sin( (y.gamm-shift) * (2*pi/ l_sc) );
 
         %error in gradient
-%         ( R*uvect - anal_rot)'
-        errinfR(j) = max(abs( R*uvect - anal_rot) );
+        errinfR(j) = max(abs( D*uvect - anal_div) );
         
     
 end
 
 loglog( 1./mvect, errinfC, 'bx' ), hold on
-loglog( 1./mvect, errinfR, 'ro' ), hold on
+% loglog( 1./mvect, errinfR, 'ro' ), hold on
 % loglog( 1./mvect, 30 * (1./mvect).^2, '--')
 loglog( 1./mvect, 6 * (1./mvect), '--')
 

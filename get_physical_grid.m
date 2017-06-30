@@ -71,14 +71,23 @@ for lev = 1 : mg
         x_gamm = x_gamm - offx;
         y_gamm = y_gamm - offy;
         
+        x_gammb = repmat( x_gamm, [1, length(y_gamm)] )';
+        y_gammb = repelem( y_gamm, length(x_gamm) )';
+        
         indgammx = repmat(1 : m-1, [1,n-1]); 
         indgammy = repelem(1 : n-1, m-1 );
         
         gamm_ind = get_vort_ind( indgammx, indgammy, lev, parms );
         
-        x_gammb = repmat( x_gamm, [1, length(y_gamm)] )';
-        y_gammb = repelem( y_gamm, length(x_gamm) )';
         
+%         indgammx = repmat(1 : m-1, [1,n-1]); 
+%         indgammy = repelem(1 : n-1, m-1 );
+%         
+%         gamm_ind = get_vort_ind( indgammx, indgammy, lev, parms );
+%         
+%         x_gammb = repmat( x_gamm, [1, length(y_gamm)] )';
+%         y_gammb = repelem( y_gamm, length(x_gamm) )';
+%         
         x.gamm = [x.gamm; x_gammb( gamm_ind ~= 0 )];
         y.gamm = [y.gamm; y_gammb( gamm_ind ~= 0 )];
         
